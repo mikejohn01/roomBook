@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new meeting</title>
+    <!--
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <!--
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/5.0/examples/sign-in/signin.css" rel="stylesheet" crossorigin="anonymous">
+-->
+</head>
+<body>
+<div class="container">
+    <div class="text-center mb-3">
+        <h3>New event</h3>
+    </div>
+    <div class="row justify-content-center">
+        <tr>
+            <form method="POST" action="/new_meeting">
+
+                <div class="form-group row-fluid">
+                    <label for="date">Date</label>
+                    <input name="date" tupe="text" id="date">
+                </div>
+
+                <div class="form-group row-fluid">
+                    <label for="title">Title</label>
+                    <input name="title" tupe="text" id="title">
+                </div>
+
+                <div class="form-group row-fluid">
+                    <label for="startTime">Start time</label>
+                    <input name="startTime" tupe="text" id="startTime">
+                </div>
+
+                <div class="form-group row-fluid">
+                    <label for="endTime">End time</label>
+                    <input name="endTime" tupe="text" id="endTime">
+                </div>
+
+                <div class="form-group row-fluid">
+                    <label for="description">Description</label>
+                    <input name="description" tupe="text" id="description">
+                </div>
+
+                <div class="form-group row-fluid">
+                    <input type="submit" value="Save meeting">
+                </div>
+            </form>
+        </tr>
+    </div>
+</div>
+</body>
+</html>
