@@ -1,6 +1,7 @@
 package ru.mikejohn.roomBook.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,11 +15,17 @@ import ru.mikejohn.roomBook.model.Meeting;
 import ru.mikejohn.roomBook.model.User;
 import ru.mikejohn.roomBook.service.MeetingService;
 
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Controller
 public class MainController {
-
+    @Autowired
     private MeetingService meetingService;
 
     @GetMapping("/login")
@@ -38,21 +45,26 @@ public class MainController {
         return "new_meeting";
     }
     @PostMapping("/new_meeting")
-    public String addMeeting(@RequestParam("date") String date, @RequestParam("title") String title,
-                             @RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime,
-                             @RequestParam("description") String description,
-                             @AuthenticationPrincipal User owner,
-                             Model model) {
-//        Meeting meeting = new Meeting();
-//        meeting.setOwner(owner);
-//        meeting.setDate(date);
-//        meeting.setTitle(title);
-//        meeting.setStartTime(startTime);
-//        meeting.setEndTime(endTime);
-//        meeting.setDescription(description);
+    public String addMeeting(
+            @RequestParam("date") @DateTimeFormat (pattern = "dd.MM.yyyy") LocalDate date,
+            @RequestParam("title") String title,
+            @RequestParam("startTime") @DateTimeFormat (pattern = "HH.mm") LocalTime sT,
+            @RequestParam("endTime") @DateTimeFormat (pattern = "HH.mm") LocalTime eT,
+            @RequestParam("description") String description,
+            @AuthenticationPrincipal User owner,
+            Model model) {
 
-        LocalDate startDate = LocalDate.parse(date);
-        Meeting meeting = Meeting.builder().date(startDate).build();
+        LocalDateTime startTime = LocalDateTime.of(date, sT);
+        LocalDateTime endTime = LocalDateTime.of(date, eT);
+
+        Meeting meeting = Meeting.builder()
+                .date(date)
+                .title(title)
+                .startTime(startTime)
+                .endTime(endTime)
+                .description(description)
+                .owner(owner)
+                .build();
 
         meetingService.add(meeting);
         return "redirect:/roombook";
