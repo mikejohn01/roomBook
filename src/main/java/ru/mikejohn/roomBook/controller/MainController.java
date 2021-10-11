@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.mikejohn.roomBook.model.Meeting;
@@ -22,6 +23,8 @@ import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -34,9 +37,32 @@ public class MainController {
     }
 
     @GetMapping("/roombook")
-    public String roombookPage() {
+    public String roombookPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Map<LocalDate, List<Meeting>> meetings = meetingService.getMeetingByWeek();
+        Iterable<LocalDate> daysOfWeek = meetingService.getDaysOfWeek();
+        model.addAttribute("daysOfWeek", daysOfWeek);
+        model.addAttribute("hours", meetingService.hours);
+        model.addAttribute("meetings", meetings);
         return "roombook";
+    }
+
+    @PostMapping("roombook/nextWeek")
+    public String getNextWeek(){
+        meetingService.setNextWeek();
+        return "redirect:/roombook";
+    }
+    @PostMapping("roombook/prevWeek")
+    public String getPrevWeek(){
+        meetingService.setPrevWeek();
+        return "redirect:/roombook";
+    }
+
+    @GetMapping("/details/{id}")
+    public String getDetails(@PathVariable long id, Model model){
+        Meeting meeting = meetingService.getMeetingById(id);
+        model.addAttribute(meeting);
+        return "details";
     }
 
     @GetMapping("/new_meeting")

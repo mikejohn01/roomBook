@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Meeting details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<h1>ROOMBOOK</h1>
+<div class="container">
+    <div class="text-center mb-3">
+        <h3>Meeting details</h3>
+    </div>
+    <div class="row justify-content-center">
+        <tr>
+            <form method="POST" th:action="@{{id}(id=${meeting.getId()})}" th:object="${meeting}">
+                <div class="form-group row-fluid">
+                    <label for="date">Date</label>
+                    <input name="date" type="text"
+                           class="mask-time form-control"
+                           id="date"
+                           text="${#temporals.format(meeting.getDate(), 'dd.MM.yyy')}" >
+                </div>
+
+                <div class="form-group row-fluid">
+                    <label for="title">Title</label>
+                    <input name="title" type="text"
+                           id="title"
+                            text="${meeting.getTitle()}">
+                </div>
+
+                <div class="form-group row-fluid">
+                    <label for="startTime">Start time</label>
+                    <input name="startTime" type="text"
+                           class="mask-time form-control"
+                           id="startTime"
+                           text="${#temporals.format(meeting.getStartTime(), 'hh.MM')}" >
+                </div>
+
+                <div class="form-group row-fluid">
+                    <label th:for="endTime">End time</label>
+                    <input type="text"
+                           class="mask-time form-control"
+                           th:field="*{endTime}">
+                           <!--th:text="${#temporals.format(meeting.getEndTime(), 'hh.MM')}" >-->
+                </div>
+
+                <div class="form-group row-fluid">
+                    <label th:for="description" class="col-form-label">Description</label>
+                    <div class="col-sm-7">
+                    <input name="description" type="text"
+                           class="form-control"
+                           th:field="*{description}" readonly>
+                    </div>
+                </div>
+
+            </form>
+        </tr>
+    </div>
+</div>
+</body>
+</html>

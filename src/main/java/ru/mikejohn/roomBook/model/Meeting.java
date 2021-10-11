@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 
 @Data
 @AllArgsConstructor
@@ -37,4 +38,11 @@ public class Meeting {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User owner;
+
+    public long getStartTimeInMinute(){
+        return startTime.get(ChronoField.MINUTE_OF_DAY);
+    }
+    public long getEndTimeInMinute(){
+        return endTime.get(ChronoField.MINUTE_OF_DAY);
+    }
 }
