@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.mikejohn.roomBook.model.Meeting;
 import ru.mikejohn.roomBook.model.User;
 import ru.mikejohn.roomBook.service.MeetingService;
+import ru.mikejohn.roomBook.service.UserService;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -30,6 +31,8 @@ import java.util.Map;
 public class MainController {
     @Autowired
     private MeetingService meetingService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -39,6 +42,9 @@ public class MainController {
     @GetMapping("/roombook")
     public String roombookPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("user", userService.findUserByUsername(auth.getName()));
+
         Map<LocalDate, List<Meeting>> meetings = meetingService.getMeetingByWeek();
         Iterable<LocalDate> daysOfWeek = meetingService.getDaysOfWeek();
         model.addAttribute("daysOfWeek", daysOfWeek);

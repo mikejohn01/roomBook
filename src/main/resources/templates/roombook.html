@@ -16,16 +16,15 @@
 
 </head>
 <body>
-<!--
+
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid" th:object="${user}">
-        <a class="btn btn-dark" th:utext="${user.getEmail()} + ' with roles: ' + ${user.getRoles()}">...</a>
+        <a class="navbar-brand" th:utext="' Пользователь: ' + ${user.getUsername()}">...</a>
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Logout" class="btn btn-dark"/>
         </form>
     </div>
 </nav>
--->
 
 <h1>ROOMBOOK</h1>
 
