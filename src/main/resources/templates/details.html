@@ -15,34 +15,36 @@
         <tr>
             <form method="POST" th:action="@{{id}(id=${meeting.getId()})}" th:object="${meeting}">
                 <div class="form-group row-fluid">
-                    <label for="date">Date</label>
+                    <label th:for="date">Date</label>
                     <input name="date" type="text"
                            class="mask-time form-control"
-                           id="date"
-                           text="${#temporals.format(meeting.getDate(), 'dd.MM.yyy')}" >
+                           th:field="*{date}">
+                    <!--text="${#temporals.format(meeting.getDate(), 'dd.MM.yyy')}" >-->
                 </div>
 
                 <div class="form-group row-fluid">
-                    <label for="title">Title</label>
+                    <label th:for="title">Title</label>
                     <input name="title" type="text"
-                           id="title"
-                            text="${meeting.getTitle()}">
+                           class="mask-time form-control"
+                           th:field="*{title}">
                 </div>
 
                 <div class="form-group row-fluid">
-                    <label for="startTime">Start time</label>
+                    <label th:for="startTime">Start time</label>
                     <input name="startTime" type="text"
                            class="mask-time form-control"
-                           id="startTime"
-                           text="${#temporals.format(meeting.getStartTime(), 'hh.MM')}" >
+                           th:field="*{startTime}">
+                           <!--text="${#temporals.format(meeting.getStartTime(), 'hh.MM')}" >-->
                 </div>
 
                 <div class="form-group row-fluid">
                     <label th:for="endTime">End time</label>
                     <input type="text"
                            class="mask-time form-control"
-                           th:field="*{endTime}">
-                           <!--th:text="${#temporals.format(meeting.getEndTime(), 'hh.MM')}" >-->
+                        th:field="*{endTime}">
+                    <!--       th:field="*{#temporals.format(endTime, 'HH.mm')}">-->
+                    <!--   th:text="${#temporals.format(meeting.getEndTime(), 'HH.mm')}" >-->
+
                 </div>
 
                 <div class="form-group row-fluid">
