@@ -43,19 +43,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                //Доступ только для не зарегистрированных пользователей
-//                .antMatchers("/registration").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
-//                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/**").hasAnyRole("USER", "ADMIN")
-                //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
-                //Настройка для входа в систему
+                //set login page
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .successHandler(loginSuccessHandler) // подключаем наш SuccessHandler для перенеправления по ролям
+                .successHandler(loginSuccessHandler) // use SuccessHandler for redirect to appropriate page
                 .permitAll();
     }
 
