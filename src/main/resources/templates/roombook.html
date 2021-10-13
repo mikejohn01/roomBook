@@ -65,15 +65,11 @@
         <div class="col border-right border-dark" th:each="day : ${daysOfWeek}">
             <div th:each="meeting : ${meetings.get(day)}">
                 <a href="details.html" th:href="@{/details/{id}(id=${meeting.getId()})}">
-                                    <div class="card text-center bg-light border-dark"
+                    <div class="card text-center bg-light border-dark"
                          th:style="position+':absolute;'+
                                        top+':'+${meeting.getStartTimeInMinute()}+'px;'+
-                                       height+':'+${meeting.getEndTimeInMinute()-meeting.getStartTimeInMinute()-2}+'px;'+width+':80%;'">
-                        <div class="card-title">
-                            <small><span data-toggle="popover" th:title="${meeting.getTitle()}"></span></small>
-                        <p class="card-text">
-                            <small><span th:text="${meeting.getOwner().getUsername()}"></span></small></p>
-                        </div>
+                                       height+':'+${meeting.getEndTimeInMinute()-meeting.getStartTimeInMinute()-2}+'px;'+width+':80%;'"
+                         th:text="${meeting.getOwner().getUsername() +' ' +  meeting.getTitle()}">
                     </div>
                 </a>
             </div>
