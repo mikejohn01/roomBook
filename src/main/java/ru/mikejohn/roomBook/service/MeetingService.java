@@ -69,7 +69,9 @@ public class MeetingService {
     public boolean hasError(LocalDateTime startTime, LocalDateTime endTime){
         long periiod = ChronoUnit.MINUTES.between(startTime, endTime);
         if ( periiod < 30){
-                return true;
+                return true;}
+        else if (0!=meetingRepository.findByStartDateBetweenOrFinishDateBetween(startTime, endTime)) {
+            return true;
         } else {
             return false;
         }

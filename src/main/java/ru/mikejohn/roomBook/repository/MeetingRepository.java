@@ -13,4 +13,7 @@ public interface MeetingRepository extends CrudRepository<Meeting, Long> {
     @Query("select mt from Meeting mt where (mt.startTime>=?1 and mt.endTime<?2)")
     List<Meeting> findByStartTimeBetween(LocalDateTime startTime, LocalDateTime endTime);
 
+    @Query("select count(mt) from Meeting mt where (mt.startTime<=?1 and mt.endTime>?1)or(mt.startTime<?2 and mt.endTime>=?2)")
+    Integer findByStartDateBetweenOrFinishDateBetween(LocalDateTime startTime, LocalDateTime endTime);
+
 }
