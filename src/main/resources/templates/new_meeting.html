@@ -28,19 +28,21 @@
                     <label for="date">Date</label>
                     <input name="date" type="text"
                            class="mask-time form-control"
+                           pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" required
                            placeholder="__.__.____"
                            id="date">
                 </div>
 
                 <div class="form-group row-fluid">
                     <label for="title">Title</label>
-                    <input name="title" type="text" id="title">
+                    <input name="title" type="text" id="title" required>
                 </div>
 
                 <div class="form-group row-fluid">
                     <label for="startTime">Start time</label>
                     <input name="startTime" type="text"
                            class="mask-time form-control"
+                           pattern="^([0-1]?[0-9]|2[0-3]).[0-5][0-9]$" minlength="5" maxlength="5" required
                            placeholder="__.__"
                            id="startTime">
                 </div>
@@ -49,6 +51,7 @@
                     <label for="endTime">End time</label>
                     <input name="endTime" type="text"
                            class="mask-time form-control"
+                           pattern="^([0-1]?[0-9]|2[0-3]).[0-5][0-9]$" minlength="5" maxlength="5" required
                            placeholder="__.__"
                            id="endTime">
                 </div>
