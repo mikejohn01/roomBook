@@ -88,7 +88,9 @@ public class MainController {
 
         LocalDateTime startTime = LocalDateTime.of(date, sT);
         LocalDateTime endTime = LocalDateTime.of(date, eT);
-
+        if( meetingService.hasError(startTime, endTime)){
+            return "/new_meeting";
+        }
         Meeting meeting = Meeting.builder()
                 .date(date)
                 .title(title)

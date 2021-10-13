@@ -11,11 +11,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Service
 public class MeetingService {
@@ -61,5 +64,14 @@ public class MeetingService {
 
     public void setPrevWeek(){
         monday = monday.minusDays(7);
+    }
+
+    public boolean hasError(LocalDateTime startTime, LocalDateTime endTime){
+        long periiod = ChronoUnit.MINUTES.between(startTime, endTime);
+        if ( periiod < 30){
+                return true;
+        } else {
+            return false;
+        }
     }
 }
