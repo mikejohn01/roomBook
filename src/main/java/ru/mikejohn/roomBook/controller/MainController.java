@@ -8,10 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import ru.mikejohn.roomBook.model.Meeting;
 import ru.mikejohn.roomBook.model.User;
 import ru.mikejohn.roomBook.service.MeetingService;
@@ -24,6 +22,7 @@ import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +68,32 @@ public class MainController {
         Meeting meeting = meetingService.getMeetingById(id);
         model.addAttribute(meeting);
         return "details";
+    }
+    @PostMapping ("/details/{id}")
+    public String changeMeeting(@PathVariable long id,
+            @RequestParam("date") @DateTimeFormat (pattern = "dd.MM.yyyy") LocalDate date,
+            @RequestParam("title") String title,
+            @RequestParam("startTime") @DateTimeFormat (pattern = "HH.mm") LocalTime sT,
+            @RequestParam("endTime") @DateTimeFormat (pattern = "HH.mm") LocalTime eT,
+            @RequestParam("description") String description,
+            Model model){
+        LocalDateTime startTime = LocalDateTime.of(date, sT);
+        LocalDateTime endTime = LocalDateTime.of(date, eT);
+
+        Meeting meeting = meetingService.getMeetingById(id);
+        meeting.setDate(date);
+        meeting.setTitle(title);
+        meeting.setStartTime(startTime);
+        meeting.setEndTime(endTime);
+        meeting.setDescription(description);
+        meetingService.update(meeting);
+        return "redirect:/roombook";
+    }
+
+    @GetMapping("/details/delete/{id}")
+    public String deleteMeeting(@PathVariable long id, Model model){
+        meetingService.deleteMeetingById(id);
+        return "redirect:/roombook";
     }
 
     @GetMapping("/new_meeting")

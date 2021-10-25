@@ -19,12 +19,15 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private AvatarService avatarService;
 
     public User findUserById(Long id) {
         return userRepository.findUserById(id);
     }
 
     public User findUserByUsername(String name) {
+        avatarService.makeAvatar(name);
         return userRepository.findUserByUsername(name);
     }
 

@@ -13,35 +13,43 @@
     </div>
     <div class="row justify-content-center">
         <tr>
-            <form method="POST" th:action="@{{id}(id=${meeting.getId()})}" th:object="${meeting}">
+            <form method="POST" th:action="@{/details/{id}(id=${meeting.getId()})}" th:object="${meeting}">
                 <div class="form-group row-fluid">
                     <label th:for="date">Date</label>
                     <input name="date" type="text"
                            class="mask-time form-control"
-                           th:field="*{date}">
-                    <!--text="${#temporals.format(meeting.getDate(), 'dd.MM.yyy')}" >-->
+                           pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" required
+                           th:field="*{date}"
+                           id="date">
                 </div>
 
                 <div class="form-group row-fluid">
                     <label th:for="title">Title</label>
                     <input name="title" type="text"
                            class="mask-time form-control"
-                           th:field="*{title}">
+                           th:field="*{title}"
+                           id = "title">
                 </div>
 
                 <div class="form-group row-fluid">
                     <label th:for="startTime">Start time</label>
                     <input name="startTime" type="text"
                            class="mask-time form-control"
-                           th:field="*{startTime}">
+                           pattern="^([0-1]?[0-9]|2[0-3]).[0-5][0-9]$" minlength="5" maxlength="5" required
+                           placeholder="__.__"
+                           th:field="*{startTime}"
+                           id="startTime" >
                            <!--text="${#temporals.format(meeting.getStartTime(), 'hh.MM')}" >-->
                 </div>
 
                 <div class="form-group row-fluid">
                     <label th:for="endTime">End time</label>
-                    <input type="text"
+                    <input name="endTime" type="text"
                            class="mask-time form-control"
-                        th:field="*{endTime}">
+                           pattern="^([0-1]?[0-9]|2[0-3]).[0-5][0-9]$" minlength="5" maxlength="5" required
+                           placeholder="__.__"
+                           th:field="*{endTime}"
+                           id="endTime" >
                     <!--       th:field="*{#temporals.format(endTime, 'HH.mm')}">-->
                     <!--   th:text="${#temporals.format(meeting.getEndTime(), 'HH.mm')}" >-->
 
@@ -52,10 +60,25 @@
                     <div class="col-sm-7">
                     <input name="description" type="text"
                            class="form-control"
-                           th:field="*{description}" readonly>
+                           th:field="*{description}"
+                           id="description" >
                     </div>
                 </div>
-
+                <div class="form-group row justify-content-center align-self-center">
+                    <!--<a th:href="@{/roombook}">
+                        <button type="button" class="btn btn-primary">Update event</button>
+                    </a>-->
+                        <!--
+                    <form method="POST" th:action="@{/delete/{id}(id=${meeting.getId()})}" th:object="${meeting}">
+                    -->
+                    <button type="submit" class="btn btn-primary">Update event</button>
+                    <a th:href="@{/details/delete/{id}(id=${meeting.getId()})}">
+                        <button type="button" class="btn btn-secondary mr-2">Delete event</button>
+                    </a>
+                    <!--
+                    </form>
+                    -->
+                </div>
             </form>
         </tr>
     </div>

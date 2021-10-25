@@ -76,4 +76,9 @@ public class MeetingService {
             return false;
         }
     }
+    public void deleteMeetingById(long id) {
+        meetingRepository.deleteById(id);
+    }
+
+    public void update(Meeting meeting) { meetingRepository.save(meeting); }
 }

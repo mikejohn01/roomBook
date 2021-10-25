@@ -20,16 +20,16 @@ public class Meeting {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    //@DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate date;
 
     private String title;
 
-    //@DateTimeFormat(pattern = "HH.mm")
+    @DateTimeFormat(pattern = "HH.mm")
     @Column(name="start_time")
     private LocalDateTime startTime;
 
-    //@DateTimeFormat(pattern = "HH.mm")
+    @DateTimeFormat(pattern = "HH.mm")
     @Column(name="end_time")
     private LocalDateTime endTime;
 
@@ -45,4 +45,7 @@ public class Meeting {
     public long getEndTimeInMinute(){
         return endTime.get(ChronoField.MINUTE_OF_DAY);
     }
+//    public String getShortTitle(){
+//        return this.getOwner().getUsername() +"\n" +  this.getTitle();
+//    }
 }
