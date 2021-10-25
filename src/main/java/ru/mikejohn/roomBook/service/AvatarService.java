@@ -18,18 +18,12 @@ public class AvatarService {
     @Autowired
     private Avatar avatar;
 
-    //private final String avatarPath = "/resources/static/images";
-    //private final String avatarPath = "/../images/";
     private final String avatarPath = "src/main/resources/static/images/";
 
     public void makeAvatar(String userName){
         try {
-//            Stream<Path> files = Files.walk(Paths.get(avatarPath));
-//            if (files.filter(f -> f.getFileName().toString().equals(userName + ".png")).count() == 0) {
-//                ImageIO.write(avatar.generateImage(), "png", new File(avatarPath+"/"+userName+".png"));
-//            }
+
             String fullPath = avatarPath+userName+".png";
-            //ImageIO.write(avatar.generateImage(), "png", new File(avatarPath+"/"+userName+".png"));
             ImageIO.write(avatar.generateImage(), "png", new File(fullPath));
         } catch (IOException | NullPointerException e) {
             String localPath = "C:/Temp/test.png";
