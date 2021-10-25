@@ -20,17 +20,18 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid" th:object="${user}">
         <a class="navbar-brand" th:utext="' Пользователь: ' + ${user.getUsername()}">...</a>
-        <!--
+
         <img class="rounded-circle img-responsive mt-2"
              th:src="@{/../images/user.png}" width="20" height="20" />
--->
-        <img class="rounded-circle img-responsive mt-2"
-             th:src="@{'/../images/'+${user.getUsername()}+'.png'}" width="20" height="20" />
 
         <!--
-        <img class="rounded-circle img-responsive mt-2"
-             th:src="*{'data:/../images/'+${user.getUsername()}+'.png'}" width="20" height="20" />
--->
+          <img class="rounded-circle img-responsive mt-2"
+               th:src="@{'src/main/resources/static/images/'+${user.getUsername()}+'.png'}" width="20" height="20" />
+  -->
+          <!--
+          <img class="rounded-circle img-responsive mt-2"
+           th:src="@{'data:images/png;base64,'+${vwNewTestContentElement.generateBase64Image()}}" width="20" height="20"/>
+  -->
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Logout" class="btn btn-dark"/>
         </form>

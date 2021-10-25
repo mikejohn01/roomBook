@@ -20,7 +20,7 @@ public class AvatarService {
 
     //private final String avatarPath = "/resources/static/images";
     //private final String avatarPath = "/../images/";
-    private final String avatarPath = "/static/images/";
+    private final String avatarPath = "src/main/resources/static/images/";
 
     public void makeAvatar(String userName){
         try {
